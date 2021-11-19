@@ -23,30 +23,6 @@ const resolvers = {
       const token = signToken(user);
       return { token, user }
     },
-    removeBook: async (parent, { bookId }, context) => {
-      if (context.user) {
-        const book = await User.findOneAndDelete(
-          {
-            _id: context.user._id,
-          },
-          {
-            $pull: {
-              savedBook: bookId,
-            },
-          },
-          {
-            new: true,
-          }
-        );
-      return book;
-      }
-    throw new AuthenticationError('You need to be logged in!');
-    },
-    removeUser: async (parent, { userId }) => {
-      return User.findOneAndUpdate(
-        { _id: userId }
-      );
-    },
     loginUser: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -63,6 +39,11 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
+    },
+    removeUser: async (parent, { userId }) => {
+      return User.findOneAndUpdate(
+        { _id: userId }
+      );
     },
     saveBook: async (parent, { bookData }, context) => {
       if (context.user) {
@@ -90,6 +71,25 @@ const resolvers = {
         return book;
       }
       throw new AuthenticationError('You need to be logged in!');
+    },
+    removeBook: async (parent, { bookId }, context) => {
+      if (context.user) {
+        const book = await User.findOneAndDelete(
+          {
+            _id: context.user._id,
+          },
+          {
+            $pull: {
+              savedBook: bookId,
+            },
+          },
+          {
+            new: true,
+          }
+        );
+      return book;
+      }
+    throw new AuthenticationError('You need to be logged in!');
     },
   },
 };
