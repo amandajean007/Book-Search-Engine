@@ -16,11 +16,13 @@
     "concurrently": "^5.1.0"
   },
   "dependencies": {
+    "@apollo/client": "^3.4.17",
     "apollo-client": "^2.6.10",
     "apollo-server": "^3.5.0",
     "apollo-server-core": "^3.5.0",
     "apollo-server-express": "^2.25.3",
     "express": "^4.17.1",
-    "graphql": "^15.7.2"
+    "graphql": "^15.7.2",
+    "react": "^17.0.2"
   }
 }
